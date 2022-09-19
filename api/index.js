@@ -38,4 +38,3 @@ app.listen("5000", () => {
     console.log("backend is runnig");
 })
 
-console.log('yoxlama');

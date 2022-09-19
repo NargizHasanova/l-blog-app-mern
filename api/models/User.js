@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema(
         email: {
             type: String,
             required: true,
-            unique: true,
+            // unique: true,
         },
         password: {
             type: String,
@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema(
         },
         profilePic: {
             type: String,
-            default: "",
+            default: "https://www.pngitem.com/pimgs/m/557-5578368_empty-profile-picture-icon-hd-png-download.png",
         },
     },
     { timestamps: true }

@@ -43,11 +43,15 @@
 .sidebarList {
     list-style-type: none;
     margin-bottom: 30px;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 .sidebarListItem {
-    display: inline-block;
-    width: 50%;
+    /* display: inline-block; */
+    width: 45%;
     margin-top: 15px;
     cursor: pointer;
 }

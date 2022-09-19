@@ -54,7 +54,7 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-// GET POST
+// GET ALL POSTS OF SINGLE USER
 router.get("/:id", async (req, res) => {
     try {
         const post = await Post.findById(req.params.id)

@@ -1,37 +1,44 @@
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 import './post.css'
 
-export default function Post({ img }) {
+export default function Post({ post }) {
+ 
   return (
     <div className="post">
-      <img className="postImg" src={img} alt="" />
-      <div className="postInfo">
+      <img
+        className="postImg"
+        src={
+          post.photo
+            ? post.photo
+            : 'https://static8.depositphotos.com/1020341/932/i/950/depositphotos_9328285-stock-photo-old-empty-post-card.jpg'
+        }
+        alt=""
+      />
+      <div
+        className="postInfo"
+      >
         <div className="postCats">
-          <span className="postCat">
-            <Link className="link" to="/posts?cat=Music">
-              Music
-            </Link>
-          </span>
-          <span className="postCat">
-            <Link className="link" to="/posts?cat=Life">
-              Life
-            </Link>
-          </span>
+          {post.categories.map((category, index) => (
+            <span key={index} className="postCat">
+              <Link className="link" to="/posts?cat=Music">
+                {category}
+              </Link>
+            </span>
+          ))}
         </div>
         <span className="postTitle">
-          <Link to="/post/abc" className="link">
-            Lorem ipsum dolor sit amet
+          <Link to={`/post/${post._id}`} className="link">
+            {post.title}
           </Link>
         </span>
         <hr />
-        <span className="postDate">1 hour ago</span>
+        <span className="postDate">
+          {/* {new Date(post.createdAt).toDateString()} */}
+          {moment(post.createdAt).fromNow()}
+        </span>
       </div>
-      <p className="postDesc">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-        officia architecto deserunt deleniti? Labore ipsum aspernatur magnam
-        fugiat, reprehenderit praesentium blanditiis quos cupiditate ratione
-        atque, exercitationem quibusdam, reiciendis odio laboriosam?
-      </p>
+      <p className="postDesc">{post.desc}</p>
     </div>
   )
 }

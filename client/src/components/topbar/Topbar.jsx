@@ -1,10 +1,24 @@
-import { Link } from "react-router-dom";
-import "./topbar.css";
-import { FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaInstagramSquare, FaSearch } from "react-icons/fa";
-import { BsFacebook } from "react-icons/bs";
+import { Link } from 'react-router-dom'
+import './topbar.css'
+import {
+  FaFacebookSquare,
+  FaTwitterSquare,
+  FaPinterestSquare,
+  FaInstagramSquare,
+  FaSearch,
+} from 'react-icons/fa'
+import { BsFacebook } from 'react-icons/bs'
+import { UserContext } from '../../Context'
+import { useContext } from 'react'
 
 export default function Topbar() {
-  let user = true
+  const { user, setUser } = useContext(UserContext)
+  function handleLogout() {
+    localStorage.removeItem('user')
+    setUser(null)
+    window.location.reload()
+  }
+
   return (
     <div className="top">
       <div className="topLeft">
@@ -27,17 +41,17 @@ export default function Topbar() {
               WRITE
             </Link>
           </li>
-          {user && <li className="topListItem">LOGOUT</li>}
+          {user && (
+            <li onClick={handleLogout} className="topListItem">
+              LOGOUT
+            </li>
+          )}
         </ul>
       </div>
       <div className="topRight">
         {user ? (
           <Link className="link" to="/settings">
-            <img
-              className="topImg"
-              src="https://scontent.fgyd9-1.fna.fbcdn.net/v/t1.6435-9/87480129_2803633269682432_116641613723205632_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_ohc=RPcN4zluhDEAX8HqlVf&tn=xFhffK1ddS5HS4Bq&_nc_ht=scontent.fgyd9-1.fna&oh=00_AT_7NvgRST24h-x7iZGocbFT-ZF6VEabHJiFaj3yGxgk_w&oe=633A3B6E"
-              alt="profile photo"
-            />
+            <img className="topImg" src={user.profilePic} alt="profile photo" />
           </Link>
         ) : (
           <ul className="topList">
@@ -56,5 +70,5 @@ export default function Topbar() {
         <FaSearch className="search-btn-nav" />
       </div>
     </div>
-  );
+  )
 }

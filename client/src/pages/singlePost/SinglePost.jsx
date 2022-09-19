@@ -1,19 +1,41 @@
 import Sidebar from '../../components/sidebar/Sidebar'
 import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import moment from 'moment'
 import './singlePost.css'
 
 export default function SinglePost() {
+  const location = useLocation()
+  console.log(location)
+  let locArray = location.pathname.split('/') //  ['', 'post', '63219d72a3337fc41d96ead5']
+  const path = locArray[locArray.length - 1]
+
+  const [post, setPost] = useState({})
+
+  useEffect(() => {
+    async function getPost() {
+      const res = await axios.get('/posts/' + path)
+      setPost(res.data)
+    }
+    getPost()
+  }, [path])
   return (
     <div className="single">
       <div className="singlePost">
         <div className="singlePostWrapper">
           <img
             className="singlePostImg"
-            src="https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-            alt=""
+            src={
+              post.photo
+                ? post.photo
+                : 'https://static8.depositphotos.com/1020341/932/i/950/depositphotos_9328285-stock-photo-old-empty-post-card.jpg'
+            }
+            alt="post-title-image"
           />
           <h1 className="singlePostTitle">
-            Lorem ipsum dolor
+            {post.title}
             <div className="singlePostEdit">
               <i className="singlePostIcon far fa-edit"></i>
               <i className="singlePostIcon far fa-trash-alt"></i>
@@ -23,43 +45,14 @@ export default function SinglePost() {
             <span>
               Author:
               <b className="singlePostAuthor">
-                <Link className="link" to="/posts?username=Safak">
-                  Safak
+                <Link className="link" to={`/posts?username=${post.username}`}>
+                  {post.username}
                 </Link>
               </b>
             </span>
-            <span>1 day ago</span>
+            <span> {moment(post.createdAt).fromNow()}</span>
           </div>
-          <p className="singlePostDesc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste error
-            quibusdam ipsa quis quidem doloribus eos, dolore ea iusto impedit!
-            Voluptatum necessitatibus eum beatae, adipisci voluptas a odit modi
-            eos! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste
-            error quibusdam ipsa quis quidem doloribus eos, dolore ea iusto
-            impedit! Voluptatum necessitatibus eum beatae, adipisci voluptas a
-            odit modi eos! Lorem, ipsum dolor sit amet consectetur adipisicing
-            elit. Iste error quibusdam ipsa quis quidem doloribus eos, dolore ea
-            iusto impedit! Voluptatum necessitatibus eum beatae, adipisci
-            voluptas a odit modi eos! Lorem, ipsum dolor sit amet consectetur
-            adipisicing elit. Iste error quibusdam ipsa quis quidem doloribus
-            eos, dolore ea iusto impedit! Voluptatum necessitatibus eum beatae,
-            adipisci voluptas a odit modi eos! Lorem, ipsum dolor sit amet
-            consectetur adipisicing elit. Iste error quibusdam ipsa quis quidem
-            doloribus eos, dolore ea iusto impedit! Voluptatum necessitatibus
-            eum beatae, adipisci voluptas a odit modi eos!
-            <br />
-            <br />
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste error
-            quibusdam ipsa quis quidem doloribus eos, dolore ea iusto impedit!
-            Voluptatum necessitatibus eum beatae, adipisci voluptas a odit modi
-            eos! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste
-            error quibusdam ipsa quis quidem doloribus eos, dolore ea iusto
-            impedit! Voluptatum necessitatibus eum beatae, adipisci voluptas a
-            odit modi eos! Lorem, ipsum dolor sit amet consectetur adipisicing
-            elit. Iste error quibusdam ipsa quis quidem doloribus eos, dolore ea
-            iusto impedit! Voluptatum necessitatibus eum beatae, adipisci
-            voluptas a odit modi eos! Lorem, ipsum dolor sit amet consectetur.
-          </p>
+          <p className="singlePostDesc">{post.desc}</p>
         </div>
       </div>
       <Sidebar />

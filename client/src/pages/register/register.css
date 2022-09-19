@@ -57,3 +57,8 @@
     color: white;
     border-radius: 10px;
 }
+
+.auth-error {
+    margin-top: 7px;
+    color: #DC3545;
+}

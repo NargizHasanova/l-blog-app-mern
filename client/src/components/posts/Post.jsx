@@ -34,7 +34,7 @@ export default function Post({ post }) {
         <hr />
         <span className="postDate">
           {/* {new Date(post.createdAt).toDateString()} */}
-          {moment(post.createdAt).fromNow()}
+          {moment(post.updatedAt).fromNow()}
         </span>
       </div>
       <p className="postDesc">{post.desc}</p>

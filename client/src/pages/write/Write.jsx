@@ -13,7 +13,7 @@ export default function Write() {
   const [title, settitle] = useState('')
   const [desc, setdesc] = useState('')
   const [file, setfile] = useState('')
-  const { user, setUser } = useContext(UserContext)
+  const { user } = useContext(UserContext)
   const navigate = useNavigate()
   console.log(file)
 

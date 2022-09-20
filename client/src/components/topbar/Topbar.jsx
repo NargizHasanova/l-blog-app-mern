@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import './topbar.css'
 import {
-  FaFacebookSquare,
   FaTwitterSquare,
   FaPinterestSquare,
   FaInstagramSquare,
@@ -12,6 +11,8 @@ import { UserContext } from '../../Context'
 import { useContext } from 'react'
 
 export default function Topbar() {
+  const PF = 'http://localhost:5000/images/'
+
   const { user, setUser } = useContext(UserContext)
   function handleLogout() {
     localStorage.removeItem('user')
@@ -51,7 +52,11 @@ export default function Topbar() {
       <div className="topRight">
         {user ? (
           <Link className="link" to="/settings">
-            <img className="topImg" src={user.profilePic} alt="profile photo" />
+            <img
+              className="topImg"
+              src={PF + user.profilePic}
+              alt="profile photo"
+            />
           </Link>
         ) : (
           <ul className="topList">

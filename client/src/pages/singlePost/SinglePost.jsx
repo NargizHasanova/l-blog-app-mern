@@ -7,6 +7,7 @@ import moment from 'moment'
 import './singlePost.css'
 
 export default function SinglePost() {
+  const publicFolder = 'http://localhost:5000/images/' // api=>images
   const location = useLocation()
   console.log(location)
   let locArray = location.pathname.split('/') //  ['', 'post', '63219d72a3337fc41d96ead5']
@@ -29,7 +30,7 @@ export default function SinglePost() {
             className="singlePostImg"
             src={
               post.photo
-                ? post.photo
+                ? publicFolder + post.photo
                 : 'https://static8.depositphotos.com/1020341/932/i/950/depositphotos_9328285-stock-photo-old-empty-post-card.jpg'
             }
             alt="post-title-image"

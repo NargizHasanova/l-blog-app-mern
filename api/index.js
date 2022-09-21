@@ -37,6 +37,11 @@ app.use("/api/users", userRoute)
 app.use("/api/posts", postRoute)
 app.use("/api/categories", categoryRoute)
 
+app.get('/',(req,res)=>{
+    app.use(express.static(path.resolve(__dirname,'client','build')))
+    res.sendFile(path.resolve(__dirname,'client','build','index.html'))
+})
+
 app.listen("5000", () => {
     console.log("backend is runnig");
 })
